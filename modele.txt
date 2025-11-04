@@ -1,0 +1,7 @@
+"17C92853AZ";"Mercedes C-Class";"diesel"
+"178524ER45";"Mercedes GLA";"essence"
+"7499RF5679";"BMW X5";"diesel"
+"33356677PO";"Golf GTI";"électrique"
+"563339GH56";"Mercedes A-Class";"essence"
+"83321TY455";"BMW Série 3";"diesel"
+
