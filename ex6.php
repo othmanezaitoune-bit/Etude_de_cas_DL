@@ -1,21 +1,20 @@
 <?php
-// Inclure la configuration de la connexion à la base de données
+
 require_once 'config_pdo.php';
 
 $results = [];
 $search_term = '';
 $message = 'Entrez une marque ou un modèle de voiture à rechercher (ex: Picasso, Mercedes).';
 
-// --- LOGIQUE DE TRAITEMENT DU FORMULAIRE (Recherche) ---
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-    // 1. Récupération et validation du terme de recherche
+
     $search_term = trim($_POST['modele_recherche'] ?? '');
 
     if (!empty($search_term)) {
         try {
-            // SQL Query: Sélectionner les propriétaires d'un modèle de voiture donné.
-            // Joins requis : Proprietaire -> cartegrise -> Voiture -> Modele
+
             $query = "
                 SELECT 
                     P.nom, 
@@ -37,17 +36,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     P.nom, P.prenom;
             ";
 
-            // 2. Préparer la requête
+
             $stmt = $PDO->prepare($query);
             
-            // 3. Binder le paramètre de recherche avec des jokers (wildcards)
+
             $search_param = '%' . $search_term . '%';
             $stmt->bindParam(':modele_recherche', $search_param);
 
-            // 4. Exécuter la requête
+
             $stmt->execute();
             
-            // 5. Récupérer tous les résultats
+
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             if (count($results) > 0) {
@@ -86,17 +85,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <h1>Question 11: Recherche de Propriétaires par Marque/Modèle</h1>
 
-<!-- FORMULAIRE DE RECHERCHE -->
+
 <form method="POST" action="">
     <label for="modele_recherche">Entrez la Marque ou le Modèle :</label>
     <input type="text" id="modele_recherche" name="modele_recherche" value="<?php echo htmlspecialchars($search_term); ?>" required>
     <button type="submit">Rechercher</button>
 </form>
 
-<!-- MESSAGE DE STATUT -->
+
 <p><?php echo $message; ?></p>
 
-<!-- AFFICHAGE DES RÉSULTATS -->
+
 <?php if (count($results) > 0): ?>
     <h2>Résultats</h2>
     <table>

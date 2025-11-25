@@ -1,22 +1,20 @@
 <?php
-// Inclure la configuration de la connexion à la base de données
+
 require_once 'config_pdo.php';
 
 $results = [];
 $search_nom = '';
 $message = 'Entrez le nom de famille (Nom) du propriétaire à rechercher (ex: Algout).';
 
-// --- LOGIQUE DE TRAITEMENT DU FORMULAIRE (Recherche) ---
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-    // 1. Récupération et validation du terme de recherche
+
     $search_nom = trim($_POST['nom_recherche'] ?? '');
 
     if (!empty($search_nom)) {
         try {
-            // SQL Query: Sélectionner tous les véhicules (immat, couleur, datevoiture) 
-            // pour un propriétaire spécifique, en joignant les tables :
-            // Proprietaire -> cartegrise -> Voiture
+
             $query = "
                 SELECT 
                     P.nom, 
@@ -39,17 +37,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     V.immat;
             ";
 
-            // 2. Préparer la requête
+
             $stmt = $PDO->prepare($query);
             
-            // 3. Binder le paramètre de recherche (recherche partielle avec LIKE)
+
             $search_param = '%' . $search_nom . '%';
             $stmt->bindParam(':nom_recherche', $search_param);
 
-            // 4. Exécuter la requête
+
             $stmt->execute();
             
-            // 5. Récupérer tous les résultats
+
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             if (count($results) > 0) {
@@ -90,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <h1>Question 12: Recherche de Véhicules par Propriétaire</h1>
 
-<!-- FORMULAIRE DE RECHERCHE -->
+
 <form method="POST" action="">
     <label for="nom_recherche">Entrez le Nom de Famille (Nom) du Propriétaire :</label>
     <div style="display: flex; align-items: center;">
@@ -99,10 +97,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </form>
 
-<!-- MESSAGE DE STATUT -->
+
 <p><?php echo $message; ?></p>
 
-<!-- AFFICHAGE DES RÉSULTATS -->
+
 <?php if (count($results) > 0): ?>
     <h2>Véhicules trouvés (<?php echo count($results); ?>)</h2>
     <table>
