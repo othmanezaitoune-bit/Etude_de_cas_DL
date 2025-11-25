@@ -4,7 +4,7 @@ require_once 'config_pdo.php';
 
 $results = [];
 $search_nom = '';
-$message = 'Entrez le nom de famille (Nom) du propriétaire à rechercher (ex: Algout).';
+$message = 'Entrez le nom de famille du propriétaire à rechercher (ex: Algout).';
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -72,16 +72,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <title>Question 12 - Recherche de Véhicules par Propriétaire</title>
     <style>
+        /* Styles mis à jour pour correspondre à Question 11 */
         body { font-family: Arial, sans-serif; margin: 20px; }
-        h1 { color: #333; }
-        form { max-width: 400px; margin-bottom: 30px; padding: 20px; border: 1px solid #007bff; border-radius: 5px; background-color: #f9f9f9; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; color: #007bff; }
-        input[type="text"] { width: calc(100% - 100px); padding: 8px; margin-right: 10px; border: 1px solid #ddd; border-radius: 3px; box-sizing: border-box; }
-        button { background-color: #28a745; color: white; padding: 8px 15px; border: none; border-radius: 4px; cursor: pointer; }
-        button:hover { background-color: #1e7e34; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ccc; padding: 12px; text-align: left; }
-        th { background-color: #e9ecef; color: #333; }
+        h1 { 
+            color: #333; 
+            
+            padding-bottom: 10px; 
+            margin-bottom: 20px;
+        }
+        form { 
+            max-width: 400px; 
+            margin-bottom: 30px; 
+            padding: 20px; 
+            border: 1px solid #ddd; /* Changement de bleu à gris */
+            border-radius: 5px; 
+            /* background-color removed to match Q11 */
+        }
+        label { 
+            display: block; 
+            margin-bottom: 8px; 
+            font-weight: normal; /* Simplified label style */
+            color: #333; /* Simplified label color */
+        }
+        input[type="text"] { 
+            width: 70%; /* Mis à jour de calc() à 70% pour correspondre à Q11 */
+            padding: 8px; 
+            margin-right: 10px; 
+            border: 1px solid #ddd; 
+            border-radius: 3px; 
+            box-sizing: border-box; 
+        }
+        button { 
+            background-color: #007bff; /* Changement de vert à bleu */
+            color: white; 
+            padding: 8px 15px; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+        }
+        button:hover { 
+            background-color: #0056b3; /* Changement de vert foncé à bleu foncé */
+        }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 20px; 
+        }
+        th, td { 
+            border: 1px solid #ddd; /* Changement de #ccc à #ddd */
+            padding: 12px; 
+            text-align: left; 
+        }
+        th { 
+            background-color: #f2f2f2; /* Mis à jour pour correspondre à Q11 */
+            color: #555; /* Mis à jour pour correspondre à Q11 */
+        }
     </style>
 </head>
 <body>
@@ -90,7 +135,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 <form method="POST" action="">
-    <label for="nom_recherche">Entrez le Nom de Famille (Nom) du Propriétaire :</label>
+    <label for="nom_recherche">Entrez le Nom de Famille du Propriétaire :</label>
+    <!-- Le style inline 'display: flex' est conservé pour la disposition côte à côte -->
     <div style="display: flex; align-items: center;">
         <input type="text" id="nom_recherche" name="nom_recherche" value="<?php echo htmlspecialchars($search_nom); ?>" required>
         <button type="submit">Rechercher</button>

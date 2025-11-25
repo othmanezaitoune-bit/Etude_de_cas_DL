@@ -127,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 
-<h1>Question 10 (Insertion)</h1>
+<h1>Question 10: L'insertion</h1>
 
 <?php if ($success_message): ?>
     <p class="message success"><?php echo $success_message; ?></p>
